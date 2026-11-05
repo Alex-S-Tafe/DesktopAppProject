@@ -10,7 +10,7 @@ public partial class EventTableView : UserControl
     public EventTableView()
     {
         InitializeComponent();
-        new CsvHandler();
-        new ActivityHandler();
+        //new CsvHandler();
+        //new ActivityHandler();
     }
 }

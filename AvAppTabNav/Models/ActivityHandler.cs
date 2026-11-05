@@ -3,10 +3,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AvAppTabNav.Models;
 
-public class ActivityHandler : ObservableObject
+public partial class ActivityHandler : ObservableObject
 {
-    private static ObservableCollection<EntertainmentActivity> _entertainmentActivities = new ObservableCollection<EntertainmentActivity>();
-    private static ObservableCollection<FitnessActivity> _fitnessActivities = new ObservableCollection<FitnessActivity>();
+    private ObservableCollection<EntertainmentActivity> _entertainmentActivities = new ObservableCollection<EntertainmentActivity>();
+    private ObservableCollection<FitnessActivity> _fitnessActivities = new ObservableCollection<FitnessActivity>();
 
     private bool readFromDatabase = false;
 

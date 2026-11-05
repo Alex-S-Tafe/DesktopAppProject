@@ -7,7 +7,7 @@
              xmlns:model="clr-namespace:AvAppTabNav.Models"
              x:Class="AvAppTabNav.Views.EventTableView"
              x:CompileBindings="True"
-             x:DataType="model:ActivityHandler"
+             x:DataType="vm:EventTableViewModel"
              
              >
     <UserControl.DataContext>

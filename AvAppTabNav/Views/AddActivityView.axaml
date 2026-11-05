@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:AvAppTabNav.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvAppTabNav.Views.AddActivityView">
+    <StackPanel Spacing="10">
+        <!--Grid RowDefinitions="40, 40, 40, 40" ColumnDefinitions="190, *">
+            <Label Grid.Row="0" Grid.Column="0" Content="Date:"/>
+            <DatePicker Grid.Row="0" Grid.Column="1"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Time:"/>
+            <TimePicker Grid.Row="1" Grid.Column="1"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Title:"/>
+            <TextBox Grid.Row="2" Grid.Column="1" PlaceholderText="Activity"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Cost:"/>
+            <TextBox Grid.Row="3" Grid.Column="1" PlaceholderText="0.00"/>
+        </Grid-->
+        <TabControl>
+            <TabItem Header="Fitness">
+                <views:AddFitnessView/>
+            </TabItem>
+            <TabItem Header="Entertainment">
+                <views:AddEntertainmentView/>
+            </TabItem>
+        </TabControl>
+    </StackPanel>
+</UserControl>

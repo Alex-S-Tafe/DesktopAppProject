@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:AvAppTabNav.ViewModels"
+             xmlns:model="clr-namespace:AvAppTabNav.Models"
+             x:Class="AvAppTabNav.Views.EventTableView"
+             x:CompileBindings="True"
+             x:DataType="model:ActivityHandler"
+             
+             >
+    <UserControl.DataContext>
+        <vm:EventTableViewModel/>
+    </UserControl.DataContext>
+    <StackPanel>
+        <Label Content="Fitness Activities List"/>
+        
+        <DataGrid ItemsSource="{Binding FitnessActivities}" 
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True" GridLinesVisibility="All"
+                  BorderThickness="1" BorderBrush="Gray"
+        >
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title" 
+                                    Binding="{Binding Title}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Start Date"
+                                    Binding="{Binding DateStartTime}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Cost"
+                                    Binding="{Binding Cost, StringFormat='{}{0:C}'}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Location"
+                                    Binding="{Binding Location}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Entertainment Activities"/>
+        <DataGrid ItemsSource="{Binding EntertainmentActivities}" 
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True" GridLinesVisibility="All"
+                  BorderThickness="1" BorderBrush="Gray"
+        >
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Title" 
+                                    Binding="{Binding Title}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Start Date"
+                                    Binding="{Binding DateStartTime}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Cost"
+                                    Binding="{Binding Cost, StringFormat='{}{0:C}'}"
+                                    Width="*"/>
+                <DataGridTextColumn Header="Minimum Participants"
+                                    Binding="{Binding MinParticipants}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+    
+</UserControl>

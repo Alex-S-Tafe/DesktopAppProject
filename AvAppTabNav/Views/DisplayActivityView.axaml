@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:AvAppTabNav.Views"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvAppTabNav.Views.DisplayActivityView">
+    <StackPanel Spacing="20">
+        <Grid RowDefinitions="40, 40" ColumnDefinitions="150, 100, 100, 100">
+            <Label Grid.Row="0" Grid.Column="0" Content="Search Date:"/>
+            <DatePicker Grid.Row="0" Grid.Column="1"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Search Criteria:"/>
+            <RadioButton Grid.Row="1" Grid.Column="1"
+                         GroupName="Date" Content="Before"/>
+            <RadioButton Grid.Row="1" Grid.Column="2"
+                         GroupName="Date" Content="On" IsChecked="True"/>
+            <RadioButton Grid.Row="1" Grid.Column="3"
+                         GroupName="Date" Content="After"/>
+        </Grid>
+        <Button Width="400">
+            <Label Content="Search Activities" HorizontalAlignment="Center"/>
+        </Button>
+        <Button Width="400">
+            <Label Content="Display All Activities" HorizontalAlignment="Center"/>
+        </Button>
+        <views:EventTableView/>
+    </StackPanel>
+</UserControl>

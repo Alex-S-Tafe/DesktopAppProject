@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvAppTabNav.Views.AddFitnessView">
+    
+    <StackPanel Spacing="20">
+        <Grid ColumnDefinitions="180, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+            <Label Grid.Row="0" Grid.Column="0" Content="Title"/>
+            <TextBox Name="TitleText" Grid.Row="0" Grid.Column="1" PlaceholderText="Event Title" TextChanged="TitleText_OnTextChanged"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Start Date"/>
+            <DatePicker Name="StartDatePicker" Grid.Row="1" Grid.Column="1" />
+            <Label Grid.Row="2" Grid.Column="0" Content="Start Time"/>
+            <TimePicker Name="StartTimePicker" Grid.Row="2" Grid.Column="1"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Cost"/>
+            <TextBox Name="CostText" Grid.Row="3" Grid.Column="1" PlaceholderText="0.00"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Location"/>
+            <TextBox Name="LocationText" Grid.Row="4" Grid.Column="1" PlaceholderText="Place in Area"/>
+        </Grid>
+        <Button Name="AddFitness" Content="Save Fitness Activity" Click="AddFitness_OnClick"/>
+    </StackPanel>
+</UserControl>

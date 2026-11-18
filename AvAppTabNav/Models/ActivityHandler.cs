@@ -1,13 +1,14 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AvAppTabNav.Models;
 
 public partial class ActivityHandler : ObservableObject
 {
-    private ObservableCollection<EntertainmentActivity> _entertainmentActivities = new ObservableCollection<EntertainmentActivity>();
-    private ObservableCollection<FitnessActivity> _fitnessActivities = new ObservableCollection<FitnessActivity>();
+    private Task<ObservableCollection<EntertainmentActivity>> _entertainmentActivities { get; set; }
+    private Task<ObservableCollection<FitnessActivity>> _fitnessActivities { get; set; }
 
     private bool _readFromDatabase = true;
 
@@ -23,33 +24,37 @@ public partial class ActivityHandler : ObservableObject
         }
     }
     
-    public ObservableCollection<EntertainmentActivity> EntertainmentActivities 
+    public Task<ObservableCollection<EntertainmentActivity>> EntertainmentActivities
     {
         get => _entertainmentActivities;
-        set => SetProperty(ref _entertainmentActivities, value);
+        set
+        {
+            var entertainmentActivities = _entertainmentActivities;
+            SetProperty(ref entertainmentActivities, value);
+        }
     }
 
-    public ObservableCollection<FitnessActivity> FitnessActivities
+    public Task<ObservableCollection<FitnessActivity>> FitnessActivities
     {
         get => _fitnessActivities;
-        set => SetProperty(ref _fitnessActivities, value);
+        set
+        {
+            var fitnessActivities = _fitnessActivities;
+            SetProperty(ref fitnessActivities, value);
+        }
     }
 
     public void ReadActivitiesFromCsv()
     {
-        EntertainmentActivities = CsvHandler.ReadEntertainmentActivities();
-        FitnessActivities = CsvHandler.ReadFitnessActivities();
+        //EntertainmentActivities = CsvHandler.ReadEntertainmentActivities();
+        //FitnessActivities = CsvHandler.ReadFitnessActivities();
     }
 
     public async void ReadActivitiesFromDB()
     {
         var dbHandler = new DBHandler();
         await dbHandler.Connect();
-        await dbHandler.ReadEntertainmentActivities();
-        await dbHandler.ReadFitnessActivities();
-        EntertainmentActivities = new ObservableCollection<EntertainmentActivity>(dbHandler.EntertainmentActivities);
-        FitnessActivities = new ObservableCollection<FitnessActivity>(dbHandler.FitnessActivities);
-        Console.WriteLine($"First Entertainment Activity: {EntertainmentActivities[0].Title}");
-        Console.WriteLine($"First Fitness Activity: {FitnessActivities[0].Title}");
+        EntertainmentActivities = dbHandler.ReadEntertainmentActivities();
+        FitnessActivities = dbHandler.ReadFitnessActivities();
     }
 }

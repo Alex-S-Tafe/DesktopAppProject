@@ -49,7 +49,7 @@ public class DBHandler
         //Console.WriteLine("\nReading done. ");
     }
 
-    public async Task ReadEntertainmentActivities()
+    public async Task<ObservableCollection<EntertainmentActivity>> ReadEntertainmentActivities()
     {
         var acts = new List<EntertainmentActivity>();
         var sql = "SELECT * FROM Activities INNER JOIN EntertainmentActivities ON Activities.ActivityId = EntertainmentActivities.ActivityId";
@@ -68,10 +68,10 @@ public class DBHandler
             //Console.WriteLine(fields[2]);
         }
 
-        EntertainmentActivities = acts;
+        return new ObservableCollection<EntertainmentActivity>(acts);
     }
     
-    public async Task ReadFitnessActivities()
+    public async Task<ObservableCollection<FitnessActivity>> ReadFitnessActivities()
     {
         var acts = new List<FitnessActivity>();
         var sql = "SELECT * FROM Activities INNER JOIN FitnessActivities ON Activities.ActivityId = FitnessActivities.ActivityId";
@@ -91,7 +91,7 @@ public class DBHandler
             //Console.WriteLine();
         }
 
-        FitnessActivities = acts;
+        return new ObservableCollection<FitnessActivity>(acts);
     }
     
 }

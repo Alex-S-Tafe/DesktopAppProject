@@ -3,6 +3,7 @@
              x:Class="AvAppTabNav.App"
              xmlns:local="using:AvAppTabNav"
              xmlns:model="clr-namespace:AvAppTabNav.Models"
+             xmlns:converters="clr-namespace:Avalonia.Controls.Converters;assembly=Avalonia.Controls"
              RequestedThemeVariant="Default">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
@@ -10,7 +11,9 @@
         <local:ViewLocator />
     </Application.DataTemplates>
              
-    
+    <Application.Resources>
+        <converters:EnumToBoolConverter x:Key="EnumToBoolConverter"/>
+    </Application.Resources>
 
     <Application.Styles>
         <FluentTheme />

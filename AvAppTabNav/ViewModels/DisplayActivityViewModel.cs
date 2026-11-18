@@ -1,10 +1,26 @@
+using System;
 using System.Collections.Generic;
 using AvAppTabNav.Models;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace AvAppTabNav.ViewModels;
 
-public class DisplayActivityViewModel : ViewModelBase
+
+
+public partial class DisplayActivityViewModel : ObservableObject
 {
+    [ObservableProperty]
+    private bool? _dateBefore = false;
+    
+    [ObservableProperty]
+    private bool? _dateOn = true;
+
+    [ObservableProperty]
+    private bool? _dateAfter = false;
+
+    [ObservableProperty] 
+    private DateTimeOffset? _dateSelected;
+    
     private List<EntertainmentActivity> _entertainmentList { get; set; }
     private List<FitnessActivity> _fitnessList { get; set; }
 
@@ -12,8 +28,5 @@ public class DisplayActivityViewModel : ViewModelBase
 
     public List<FitnessActivity> FitnessList => _fitnessList;
 
-    public void LoadActivities()
-    {
-        
-    }
+    
 }

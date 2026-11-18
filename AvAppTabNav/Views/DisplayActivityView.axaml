@@ -3,19 +3,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:views="clr-namespace:AvAppTabNav.Views"
+             xmlns:vm="clr-namespace:AvAppTabNav.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvAppTabNav.Views.DisplayActivityView">
+             x:Class="AvAppTabNav.Views.DisplayActivityView"
+             x:DataType="vm:DisplayActivityViewModel">
     <StackPanel Spacing="20">
         <Grid RowDefinitions="40, 40" ColumnDefinitions="150, 100, 100, 100">
             <Label Grid.Row="0" Grid.Column="0" Content="Search Date:"/>
-            <DatePicker Grid.Row="0" Grid.Column="1"/>
+            <CalendarDatePicker Grid.Row="0" Grid.Column="1" 
+                        SelectedDate="{Binding DateSelected}"
+                        PlaceholderText="Date to search"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Search Criteria:"/>
             <RadioButton Grid.Row="1" Grid.Column="1"
-                         GroupName="Date" Content="Before"/>
+                         GroupName="Date" Content="Before"
+                         IsChecked="{Binding DateBefore}"
+                         IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
             <RadioButton Grid.Row="1" Grid.Column="2"
-                         GroupName="Date" Content="On" IsChecked="True"/>
+                         GroupName="Date" Content="On" 
+                         IsChecked="{Binding DateOn}"
+                         IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
             <RadioButton Grid.Row="1" Grid.Column="3"
-                         GroupName="Date" Content="After"/>
+                         GroupName="Date" Content="After"
+                         IsChecked="{Binding DateAfter}"
+                         IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
         </Grid>
         <Button Width="400">
             <Label Content="Search Activities" HorizontalAlignment="Center"/>

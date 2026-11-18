@@ -16,7 +16,7 @@
     <StackPanel>
         <Label Content="Fitness Activities List"/>
         
-        <DataGrid ItemsSource="{Binding FitnessActivities}" 
+        <DataGrid ItemsSource="{Binding FitnessActivities^}" 
                   AutoGenerateColumns="False"
                   IsReadOnly="True" GridLinesVisibility="All"
                   BorderThickness="1" BorderBrush="Gray"
@@ -37,7 +37,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Entertainment Activities"/>
-        <DataGrid ItemsSource="{Binding EntertainmentActivities}" 
+        <DataGrid ItemsSource="{Binding EntertainmentActivities^}" 
                   AutoGenerateColumns="False"
                   IsReadOnly="True" GridLinesVisibility="All"
                   BorderThickness="1" BorderBrush="Gray"
@@ -57,6 +57,7 @@
                                     Binding="{Binding MinParticipants}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="{Binding sampleAsyncActivity^.Title, FallbackValue='Loading'}"/>
     </StackPanel>
     
 </UserControl>

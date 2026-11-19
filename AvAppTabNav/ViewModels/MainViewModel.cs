@@ -6,6 +6,15 @@ namespace AvAppTabNav.ViewModels;
 
 public class MainViewModel : ViewModelBase
 {
+    private readonly ActivityHandler _activityHandler = new();
     
+    public AddFitnessViewModel AddFitness { get; }
+    public DisplayActivityViewModel DisplayActivity { get; }
+
+    public MainViewModel()
+    {
+        AddFitness = new AddFitnessViewModel(_activityHandler);
+        DisplayActivity = new DisplayActivityViewModel(_activityHandler);
+    }
 
 }

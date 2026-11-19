@@ -2,22 +2,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvAppTabNav.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="AvAppTabNav.Views.AddFitnessView">
+             x:Class="AvAppTabNav.Views.AddFitnessView"
+             x:DataType="vm:AddFitnessViewModel">
     
     <StackPanel Spacing="20">
         <Grid ColumnDefinitions="180, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto">
             <Label Grid.Row="0" Grid.Column="0" Content="Title"/>
-            <TextBox Name="TitleText" Grid.Row="0" Grid.Column="1" PlaceholderText="Event Title" TextChanged="TitleText_OnTextChanged"/>
+            <TextBox Name="TitleText" Grid.Row="0" Grid.Column="1" PlaceholderText="Event Title" Text="{Binding Title}"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Start Date"/>
-            <CalendarDatePicker Name="StartDatePicker" Grid.Row="1" Grid.Column="1" SelectedDateChanged="StartDatePicker_OnSelectedDateChanged"/>
+            <CalendarDatePicker Name="StartDatePicker" Grid.Row="1" Grid.Column="1" SelectedDate="{Binding DateStartTime}"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Start Time"/>
-            <TimePicker Name="StartTimePicker" Grid.Row="2" Grid.Column="1"/>
+            <TimePicker Name="StartTimePicker" Grid.Row="2" Grid.Column="1" SelectedTime="{Binding StartTime}"/>
             <Label Grid.Row="3" Grid.Column="0" Content="Cost"/>
-            <TextBox Name="CostText" Grid.Row="3" Grid.Column="1" PlaceholderText="0.00"/>
+            <TextBox Name="CostText" Grid.Row="3" Grid.Column="1" PlaceholderText="0.00" Text="{Binding Cost}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Location"/>
-            <TextBox Name="LocationText" Grid.Row="4" Grid.Column="1" PlaceholderText="Place in Area"/>
+            <TextBox Name="LocationText" Grid.Row="4" Grid.Column="1" PlaceholderText="Place in Area" Text="{Binding Location}"/>
         </Grid>
-        <Button Name="AddFitness" Content="Save Fitness Activity" Click="AddFitness_OnClick"/>
+        <Button Name="AddFitness" Content="Save Fitness Activity" Command="{Binding SaveFitnessCommand}"/>
+        <TextBlock Text="{Binding Message}"/>
     </StackPanel>
 </UserControl>

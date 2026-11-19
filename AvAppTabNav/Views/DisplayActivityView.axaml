@@ -27,9 +27,9 @@
         <Button Width="400">
             <Label Content="Search Activities" HorizontalAlignment="Center"/>
         </Button>
-        <Button Width="400">
+        <Button Width="400" Command="{Binding DisplayAllCommand}">
             <Label Content="Display All Activities" HorizontalAlignment="Center"/>
         </Button>
-        <views:EventTableView/>
+        <views:EventTableView DataContext="{Binding EventTable}"/>
     </StackPanel>
 </UserControl>

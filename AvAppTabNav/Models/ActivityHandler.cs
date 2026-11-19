@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -7,60 +9,62 @@ namespace AvAppTabNav.Models;
 
 public partial class ActivityHandler : ObservableObject
 {
-    private static Task<ObservableCollection<EntertainmentActivity>> _entertainmentActivities { get; set; }
-    private static Task<ObservableCollection<FitnessActivity>> _fitnessActivities { get; set; }
+    public ObservableCollection<EntertainmentActivity> EntertainmentActivities { get; } = new();
+    public ObservableCollection<FitnessActivity> FitnessActivities { get; } = new();
 
     private bool _readFromDatabase = true;
 
-    public ActivityHandler()
+    public async Task LoadAsync()
     {
         if (_readFromDatabase)
         {
-            ReadActivitiesFromDB();
+            await ReadActivitiesFromDB();
         }
         else
         {
             ReadActivitiesFromCsv();
         }
     }
-    
-    public Task<ObservableCollection<EntertainmentActivity>> EntertainmentActivities
-    {
-        get => _entertainmentActivities;
-        set
-        {
-            var entertainmentActivities = _entertainmentActivities;
-            SetProperty(ref entertainmentActivities, value);
-        }
-    }
-
-    public Task<ObservableCollection<FitnessActivity>> FitnessActivities
-    {
-        get => _fitnessActivities;
-        set
-        {
-            var fitnessActivities = _fitnessActivities;
-            SetProperty(ref fitnessActivities, value);
-        }
-    }
 
     public void ReadActivitiesFromCsv()
     {
-        //EntertainmentActivities = CsvHandler.ReadEntertainmentActivities();
-        //FitnessActivities = CsvHandler.ReadFitnessActivities();
+        ReplaceAll(EntertainmentActivities, CsvHandler.ReadEntertainmentActivities());
+        ReplaceAll(FitnessActivities, CsvHandler.ReadFitnessActivities());
     }
 
-    public async void ReadActivitiesFromDB()
+    public async Task ReadActivitiesFromDB()
     {
         var dbHandler = new DBHandler();
         await dbHandler.Connect();
-        EntertainmentActivities = dbHandler.ReadEntertainmentActivities();
-        FitnessActivities = dbHandler.ReadFitnessActivities();
+        // TODO: Figure out why the following lines error on await
+        var entertainment = await dbHandler.EntertainmentActivities;
+        var fitness = await dbHandler.FitnessActivities;
+        ReplaceAll(EntertainmentActivities, entertainment);
+        ReplaceAll(FitnessActivities, fitness);
+    }
+    
+    public void AddFitnessActivity(FitnessActivity activity) => InsertSorted(FitnessActivities, activity);
+    public void AddEntertainmentActivity(EntertainmentActivity activity) => InsertSorted(EntertainmentActivities, activity);
+
+    private static void ReplaceAll<T>(ObservableCollection<T> target, IEnumerable<T> items) where T : Activity
+    {
+        target.Clear();
+        foreach (var item in items.OrderBy(a => ToDate(a.DateStartTime)))
+        {
+            target.Add(item);
+        }
     }
 
-    public static void AddEntertainmentActivity()
+    private static void InsertSorted<T>(ObservableCollection<T> target, T item) where T : Activity
     {
-        
-        //_entertainmentActivities += new EntertainmentActivity("time", "event", 0.0, 5);
+        var date = ToDate(item.DateStartTime);
+        var index = 0;
+        while (index < target.Count && ToDate(target[index].DateStartTime) <= date)
+        {
+            index++;
+        }
+        target.Insert(index, item);
     }
+
+    private static DateTime ToDate(string? value) => DateTime.TryParse(value, out var date) ? date : DateTime.MaxValue;
 }

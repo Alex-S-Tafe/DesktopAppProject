@@ -12,31 +12,21 @@ namespace AvAppTabNav.ViewModels;
 
 public partial class EventTableViewModel : ViewModelBase
 {
-    [ObservableProperty]
-    private ObservableCollection<EntertainmentActivity>  _entertainmentActivities;
-    [ObservableProperty]
-    private ObservableCollection<FitnessActivity> _fitnessActivities;
+    private readonly ActivityHandler _activityHandler;
 
-    public EventTableViewModel()
+    public EventTableViewModel(ActivityHandler activityHandler)
     {
-        _ = LoadAsync();
+        _activityHandler = activityHandler;
     }
 
-    public async Task LoadAsync()
+    public ObservableCollection<FitnessActivity> FitnessActivities => _activityHandler.FitnessActivities;
+    public ObservableCollection<EntertainmentActivity> EntertainmentActivities => _activityHandler.EntertainmentActivities;
+
+    public Task<EntertainmentActivity> sampleAsynActivity => GetAsyncActivity();
+    private async Task<EntertainmentActivity> GetAsyncActivity()
     {
-        try
-        {
-            var db = new DBHandler();
-            await db.Connect();
-            FitnessActivities = await db.ReadFitnessActivities();
-            EntertainmentActivities = await db.ReadEntertainmentActivities();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Load failed: {ex.Message}");
-        }
+        await Task.Delay(3000);
+        return new EntertainmentActivity("date", "activity", 1.25, 5);
     }
 
-    
-    
 }

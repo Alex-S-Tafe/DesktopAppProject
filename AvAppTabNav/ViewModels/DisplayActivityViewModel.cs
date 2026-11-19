@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AvAppTabNav.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace AvAppTabNav.ViewModels;
 
@@ -9,6 +11,15 @@ namespace AvAppTabNav.ViewModels;
 
 public partial class DisplayActivityViewModel : ObservableObject
 {
+    private readonly ActivityHandler _activityHandler;
+
+    public DisplayActivityViewModel(ActivityHandler activityHandler)
+    {
+        _activityHandler = activityHandler;
+    }
+
+    public EventTableViewModel EventTable { get; }
+    
     [ObservableProperty]
     private bool? _dateBefore = false;
     
@@ -19,16 +30,26 @@ public partial class DisplayActivityViewModel : ObservableObject
     private bool? _dateAfter = false;
 
     [ObservableProperty] 
-    private DateTimeOffset? _dateSelected;
+    private DateTime? _dateSelected;
     
     private List<EntertainmentActivity> _entertainmentList { get; set; }
     private List<FitnessActivity> _fitnessList { get; set; }
 
     public List<EntertainmentActivity> EntertainmentList => _entertainmentList;
-
     public List<FitnessActivity> FitnessList => _fitnessList;
 
-    public void LoadActivities(){}
+    [RelayCommand]
+    private async Task DisplayAll()
+    {
+        try
+        {
+            await _activityHandler.LoadAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Load Failed: {ex.Message}");
+        }
+    }
 
     partial void OnDateBeforeChanged(bool? value) => PrintDateState();
     partial void OnDateOnChanged(bool? value) => PrintDateState();

@@ -22,7 +22,7 @@
             <view:AddActivityView />
         </TabItem>
         <TabItem Header="Display Activities">
-            <view:DisplayActivityView />
+            <view:DisplayActivityView DataContext="{Binding DisplayActivity}"/>
         </TabItem>
     </TabControl>
 

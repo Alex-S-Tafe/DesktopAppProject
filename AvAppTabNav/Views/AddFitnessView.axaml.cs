@@ -14,22 +14,4 @@ public partial class AddFitnessView : UserControl
         InitializeComponent();
     }
 
-    
-
-    private void AddFitness_OnClick(object? sender, RoutedEventArgs e)
-    {
-        // add activity is all input valid
-    }
-
-
-    private void TitleText_OnTextChanged(object? sender, TextChangedEventArgs e)
-    {
-        
-    }
-
-
-    private void StartDatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        throw new NotImplementedException();
-    }
 }

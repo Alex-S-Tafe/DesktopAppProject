@@ -10,9 +10,7 @@
              x:DataType="vm:EventTableViewModel"
              
              >
-    <UserControl.DataContext>
-        <vm:EventTableViewModel/>
-    </UserControl.DataContext>
+    
     <StackPanel>
         <Label Content="Fitness Activities List"/>
         

@@ -10,7 +10,7 @@
             <Label Grid.Row="0" Grid.Column="0" Content="Title"/>
             <TextBox Name="TitleText" Grid.Row="0" Grid.Column="1" PlaceholderText="Event Title" TextChanged="TitleText_OnTextChanged"/>
             <Label Grid.Row="1" Grid.Column="0" Content="Start Date"/>
-            <DatePicker Name="StartDatePicker" Grid.Row="1" Grid.Column="1" />
+            <CalendarDatePicker Name="StartDatePicker" Grid.Row="1" Grid.Column="1" SelectedDateChanged="StartDatePicker_OnSelectedDateChanged"/>
             <Label Grid.Row="2" Grid.Column="0" Content="Start Time"/>
             <TimePicker Name="StartTimePicker" Grid.Row="2" Grid.Column="1"/>
             <Label Grid.Row="3" Grid.Column="0" Content="Cost"/>

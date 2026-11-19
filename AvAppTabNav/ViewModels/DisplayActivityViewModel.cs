@@ -28,5 +28,12 @@ public partial class DisplayActivityViewModel : ObservableObject
 
     public List<FitnessActivity> FitnessList => _fitnessList;
 
-    
+    public void LoadActivities(){}
+
+    partial void OnDateBeforeChanged(bool? value) => PrintDateState();
+    partial void OnDateOnChanged(bool? value) => PrintDateState();
+    partial void OnDateAfterChanged(bool? value) => PrintDateState();
+
+    private void PrintDateState() =>
+        Console.WriteLine($"On: {DateOn}, Before: {DateBefore}, After: {DateAfter}");
 }

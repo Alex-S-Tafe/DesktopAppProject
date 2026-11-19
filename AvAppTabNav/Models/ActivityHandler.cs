@@ -7,8 +7,8 @@ namespace AvAppTabNav.Models;
 
 public partial class ActivityHandler : ObservableObject
 {
-    private Task<ObservableCollection<EntertainmentActivity>> _entertainmentActivities { get; set; }
-    private Task<ObservableCollection<FitnessActivity>> _fitnessActivities { get; set; }
+    private static Task<ObservableCollection<EntertainmentActivity>> _entertainmentActivities { get; set; }
+    private static Task<ObservableCollection<FitnessActivity>> _fitnessActivities { get; set; }
 
     private bool _readFromDatabase = true;
 
@@ -56,5 +56,11 @@ public partial class ActivityHandler : ObservableObject
         await dbHandler.Connect();
         EntertainmentActivities = dbHandler.ReadEntertainmentActivities();
         FitnessActivities = dbHandler.ReadFitnessActivities();
+    }
+
+    public static void AddEntertainmentActivity()
+    {
+        
+        //_entertainmentActivities += new EntertainmentActivity("time", "event", 0.0, 5);
     }
 }

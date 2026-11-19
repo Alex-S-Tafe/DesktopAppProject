@@ -26,6 +26,10 @@ public partial class AddFitnessView : UserControl
     {
         
     }
-    
-    
+
+
+    private void StartDatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }

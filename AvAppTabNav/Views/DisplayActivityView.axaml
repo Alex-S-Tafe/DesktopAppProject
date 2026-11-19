@@ -16,16 +16,13 @@
             <Label Grid.Row="1" Grid.Column="0" Content="Search Criteria:"/>
             <RadioButton Grid.Row="1" Grid.Column="1"
                          GroupName="Date" Content="Before"
-                         IsChecked="{Binding DateBefore}"
-                         IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                         IsChecked="{Binding DateBefore}"/>
             <RadioButton Grid.Row="1" Grid.Column="2"
                          GroupName="Date" Content="On" 
-                         IsChecked="{Binding DateOn}"
-                         IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                         IsChecked="{Binding DateOn}"/>
             <RadioButton Grid.Row="1" Grid.Column="3"
                          GroupName="Date" Content="After"
-                         IsChecked="{Binding DateAfter}"
-                         IsCheckedChanged="ToggleButton_OnIsCheckedChanged"/>
+                         IsChecked="{Binding DateAfter}"/>
         </Grid>
         <Button Width="400">
             <Label Content="Search Activities" HorizontalAlignment="Center"/>

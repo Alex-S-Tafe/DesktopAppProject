@@ -16,6 +16,7 @@ public partial class DisplayActivityViewModel : ObservableObject
     public DisplayActivityViewModel(ActivityHandler activityHandler)
     {
         _activityHandler = activityHandler;
+        EventTable = new EventTableViewModel(activityHandler);
     }
 
     public EventTableViewModel EventTable { get; }

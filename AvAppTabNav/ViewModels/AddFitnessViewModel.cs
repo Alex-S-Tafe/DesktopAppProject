@@ -1,7 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Avalonia.Controls;
 using AvAppTabNav.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

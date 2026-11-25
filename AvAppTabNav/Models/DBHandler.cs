@@ -83,15 +83,13 @@ public class DBHandler
             var fields = new string[reader.FieldCount];
             for (int i = 0; i < reader.FieldCount; i++)
             {
-                //Console.Write("{0}\t", reader.IsDBNull(i) ? "NULL" : reader.GetValue(i));
                 fields[i] = reader.IsDBNull(i)? "NULL" : reader.GetValue(i).ToString();
             }
             acts.Add(new FitnessActivity(fields[1], fields[2], double.Parse(fields[3]), fields[5]));
-            //Console.WriteLine(fields[2]);
-            //Console.WriteLine();
         }
 
         return new ObservableCollection<FitnessActivity>(acts);
+        //FitnessActivities = acts;
     }
     
 }

@@ -36,9 +36,8 @@ public partial class ActivityHandler : ObservableObject
     {
         var dbHandler = new DBHandler();
         await dbHandler.Connect();
-        // TODO: Figure out why the following lines error on await
-        var entertainment = await dbHandler.EntertainmentActivities;
-        var fitness = await dbHandler.FitnessActivities;
+        var entertainment = await dbHandler.ReadEntertainmentActivities();
+        var fitness = await dbHandler.ReadFitnessActivities();
         ReplaceAll(EntertainmentActivities, entertainment);
         ReplaceAll(FitnessActivities, fitness);
     }

@@ -20,8 +20,8 @@ public partial class AddFitnessViewModel : ObservableObject
     [ObservableProperty]
     private string _title = "";
 
-    [ObservableProperty]
-    private DateTimeOffset? _dateStartTime = new DateTimeOffset(DateTime.Today);
+    [ObservableProperty] 
+    private DateTime? _dateStartTime;
 
     [ObservableProperty] 
     private TimeSpan? _startTime;

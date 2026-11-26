@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -60,9 +61,8 @@ public partial class ActivityHandler : ObservableObject
         if (_readFromDatabase)
         {
             // do thing
-            string[] dateParts = activity.DateStartTime.Split(' ');
-            string[] dateParts2 = dateParts[1].Split(' ');
-            string formattedDate = dateParts[0].Replace('/', '-') + " " + dateParts2[0] + ".000";
+            var date = DateTime.Parse(activity.DateStartTime!);
+            string formattedDate = date.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
             string sql = $"AddFitnessActivity " +
                          $"@DateStartTime = '{formattedDate}', " +
                          $"@Title = '{activity.Title}', " +
@@ -83,8 +83,8 @@ public partial class ActivityHandler : ObservableObject
         if (_readFromDatabase)
         {
             // do thing
-            string[] dateParts = activity.DateStartTime.Split(' ');
-            string formattedDate = dateParts[0].Replace('/', '-') + " " + dateParts[1] + ".000";
+            var date = DateTime.Parse(activity.DateStartTime!);
+            string formattedDate = date.ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
             string sql = $"AddEntertainmentActivity " +
                          $"@DateStartTime = '{formattedDate}', " +
                          $"@Title = '{activity.Title}', " +

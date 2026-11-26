@@ -48,9 +48,16 @@ public partial class AddFitnessViewModel : ObservableObject
         
         var start = DateStartTime.Value.Date + (StartTime ?? TimeSpan.Zero);
         var activity = new FitnessActivity(start.ToString(), Title, Cost, Location);
-        
-        _activityHandler.AddFitnessActivity(activity);
-        
+
+        try
+        {
+            _activityHandler.AddFitnessActivity(activity);
+        }
+        catch (Exception ex)
+        {
+            Message = $"Save Failed: {ex.Message}";
+            return;
+        }
 
         Message = $"Saved \"{Title}\".";
         Title = "";

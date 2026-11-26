@@ -54,8 +54,15 @@ public partial class AddEntertainmentViewModel : ObservableObject
         
         var start = DateStartTime.Value.Date + (StartTime ?? TimeSpan.Zero);
         var activity = new EntertainmentActivity(start.ToString(), Title, Cost, MinParticipants);
-        
-        _activityHandler.AddEntertainmentActivity(activity);
+
+        try
+        {
+            _activityHandler.AddEntertainmentActivity(activity);
+        }
+        catch (Exception ex)
+        {
+            Message = $"Save Failed: {ex.Message}";
+        }
 
         Message = $"Saved \"{Title}\".";
         Title = "";

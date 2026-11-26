@@ -124,7 +124,7 @@ public class DBHandler
             var fields = new string[reader.FieldCount];
             for (int i = 0; i < reader.FieldCount; i++)
             {
-                fields[i] = reader.IsDBNull(i)? "NULL" : reader.GetValue(i).ToString();
+                fields[i] = reader.IsDBNull(i) ? "NULL" : reader.GetValue(i).ToString();
             }
             acts.Add(new FitnessActivity(fields[1], fields[2], double.Parse(fields[3]), fields[5]));
         }
@@ -134,8 +134,9 @@ public class DBHandler
 
     public async Task AddEntry(string data)
     {
-        string sql = "EXEC " + data + "\nGO";
+        string sql = "EXEC " + data;
         Console.WriteLine(sql);
         await using var command = new SqlCommand(sql, _connection);
+        await command.ExecuteNonQueryAsync();
     }
 }

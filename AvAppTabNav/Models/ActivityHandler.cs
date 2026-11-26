@@ -55,6 +55,51 @@ public partial class ActivityHandler : ObservableObject
         }
     }
 
+    public async Task SaveFitnessActivity(FitnessActivity activity)
+    {
+        if (_readFromDatabase)
+        {
+            // do thing
+            string[] dateParts = activity.DateStartTime.Split(' ');
+            string[] dateParts2 = dateParts[1].Split(' ');
+            string formattedDate = dateParts[0].Replace('/', '-') + " " + dateParts2[0] + ".000";
+            string sql = $"AddFitnessActivity " +
+                         $"@DateStartTime = '{formattedDate}', " +
+                         $"@Title = '{activity.Title}', " +
+                         $"@Cost = '{activity.Cost}', " +
+                         $"@Location = '{activity.Location}';";
+            var dbHandler = new DBHandler();
+            await dbHandler.Connect();
+            await dbHandler.AddEntry(sql);
+        }
+        else
+        {
+            // do other thing later if time allows
+        }
+    }
+    
+    public async Task SaveEntertainmentActivity(EntertainmentActivity activity)
+    {
+        if (_readFromDatabase)
+        {
+            // do thing
+            string[] dateParts = activity.DateStartTime.Split(' ');
+            string formattedDate = dateParts[0].Replace('/', '-') + " " + dateParts[1] + ".000";
+            string sql = $"AddEntertainmentActivity " +
+                         $"@DateStartTime = '{formattedDate}', " +
+                         $"@Title = '{activity.Title}', " +
+                         $"@Cost = '{activity.Cost}', " +
+                         $"@MinParticipants = '{activity.MinParticipants}';";
+            var dbHandler = new DBHandler();
+            await dbHandler.Connect();
+            await dbHandler.AddEntry(sql);
+        }
+        else
+        {
+            // do other thing later if time allows
+        }
+    }
+
     public void ReadActivitiesFromCsv()
     {
         ReplaceAll(EntertainmentActivities, CsvHandler.ReadEntertainmentActivities());
@@ -80,9 +125,18 @@ public partial class ActivityHandler : ObservableObject
         ReplaceAll(EntertainmentActivities, entertainment);
         ReplaceAll(FitnessActivities, fitness);
     }
-    
-    public void AddFitnessActivity(FitnessActivity activity) => InsertSorted(FitnessActivities, activity);
-    public void AddEntertainmentActivity(EntertainmentActivity activity) => InsertSorted(EntertainmentActivities, activity);
+
+    public async Task AddFitnessActivity(FitnessActivity activity)
+    {
+        InsertSorted(FitnessActivities, activity);
+        await SaveFitnessActivity(activity);
+    }
+
+    public async Task AddEntertainmentActivity(EntertainmentActivity activity)
+    {
+        InsertSorted(EntertainmentActivities, activity);
+        await SaveEntertainmentActivity(activity);
+    }
 
     private static void ReplaceAll<T>(ObservableCollection<T> target, IEnumerable<T> items) where T : Activity
     {

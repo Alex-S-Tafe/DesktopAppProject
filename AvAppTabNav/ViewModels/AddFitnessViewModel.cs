@@ -50,7 +50,7 @@ public partial class AddFitnessViewModel : ObservableObject
         var activity = new FitnessActivity(start.ToString(), Title, Cost, Location);
         
         _activityHandler.AddFitnessActivity(activity);
-        // TODO: db saving
+        
 
         Message = $"Saved \"{Title}\".";
         Title = "";

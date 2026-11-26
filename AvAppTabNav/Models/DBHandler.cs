@@ -131,4 +131,11 @@ public class DBHandler
 
         return new ObservableCollection<FitnessActivity>(acts);
     }
+
+    public async Task AddEntry(string data)
+    {
+        string sql = "EXEC " + data + "\nGO";
+        Console.WriteLine(sql);
+        await using var command = new SqlCommand(sql, _connection);
+    }
 }

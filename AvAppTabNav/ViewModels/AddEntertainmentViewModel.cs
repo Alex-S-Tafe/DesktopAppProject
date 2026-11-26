@@ -56,7 +56,6 @@ public partial class AddEntertainmentViewModel : ObservableObject
         var activity = new EntertainmentActivity(start.ToString(), Title, Cost, MinParticipants);
         
         _activityHandler.AddEntertainmentActivity(activity);
-        // TODO: db saving
 
         Message = $"Saved \"{Title}\".";
         Title = "";

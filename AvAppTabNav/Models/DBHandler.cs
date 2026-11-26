@@ -46,7 +46,6 @@ public class DBHandler
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
-        //Console.WriteLine("\nReading done. ");
     }
 
     public async Task<ObservableCollection<EntertainmentActivity>> ReadEntertainmentActivities()
@@ -61,11 +60,9 @@ public class DBHandler
             var fields = new string[reader.FieldCount];
             for (int i = 0; i < reader.FieldCount; i++)
             {
-                //Console.Write("{0}\t", reader.IsDBNull(i) ? "NULL" : reader.GetValue(i));
                 fields[i] = reader.IsDBNull(i)? "NULL" : reader.GetValue(i).ToString();
             }
             acts.Add(new EntertainmentActivity(fields[1], fields[2], double.Parse(fields[3]), int.Parse(fields[5])));
-            //Console.WriteLine(fields[2]);
         }
 
         return new ObservableCollection<EntertainmentActivity>(acts);
@@ -89,7 +86,49 @@ public class DBHandler
         }
 
         return new ObservableCollection<FitnessActivity>(acts);
-        //FitnessActivities = acts;
     }
     
+    public async Task<ObservableCollection<EntertainmentActivity>> ReadEntertainmentActivities(string query)
+    {
+        var acts = new List<EntertainmentActivity>();
+        var sql = "SELECT * FROM Activities INNER JOIN EntertainmentActivities ON Activities.ActivityId = EntertainmentActivities.ActivityId";
+        sql += query;
+        //Console.WriteLine(sql);
+        await using var command = new SqlCommand(sql, _connection);
+        await using var reader = await command.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            var fields = new string[reader.FieldCount];
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                fields[i] = reader.IsDBNull(i)? "NULL" : reader.GetValue(i).ToString();
+            }
+            acts.Add(new EntertainmentActivity(fields[1], fields[2], double.Parse(fields[3]), int.Parse(fields[5])));
+        }
+
+        return new ObservableCollection<EntertainmentActivity>(acts);
+    }
+    
+    public async Task<ObservableCollection<FitnessActivity>> ReadFitnessActivities(string query)
+    {
+        var acts = new List<FitnessActivity>();
+        var sql = "SELECT * FROM Activities INNER JOIN FitnessActivities ON Activities.ActivityId = FitnessActivities.ActivityId";
+        sql += query;
+        //Console.WriteLine(sql);
+        await using var command = new SqlCommand(sql, _connection);
+        await using var reader = await command.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            var fields = new string[reader.FieldCount];
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                fields[i] = reader.IsDBNull(i)? "NULL" : reader.GetValue(i).ToString();
+            }
+            acts.Add(new FitnessActivity(fields[1], fields[2], double.Parse(fields[3]), fields[5]));
+        }
+
+        return new ObservableCollection<FitnessActivity>(acts);
+    }
 }

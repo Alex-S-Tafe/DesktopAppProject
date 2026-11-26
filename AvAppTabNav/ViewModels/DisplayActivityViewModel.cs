@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using AvAppTabNav.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -45,6 +46,25 @@ public partial class DisplayActivityViewModel : ObservableObject
         try
         {
             await _activityHandler.LoadAsync();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Load Failed: {ex.Message}");
+        }
+    }
+
+    [RelayCommand]
+    private async Task SearchActivities()
+    {
+        if (DateSelected is null) return;
+        try
+        {
+            string date = DateSelected.Value.ToString(CultureInfo.InvariantCulture).Replace('/', '-');
+            int period = 0;
+            if (DateBefore == true) period = -1;
+            if (DateOn == true) period = 0;
+            if (DateAfter == true) period = 1;
+            await _activityHandler.SearchAsync(date, period);
         }
         catch (Exception ex)
         {

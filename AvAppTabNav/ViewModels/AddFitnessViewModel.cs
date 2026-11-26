@@ -39,6 +39,12 @@ public partial class AddFitnessViewModel : ObservableObject
             Message = "Please enter a valid title, start date and location.";
             return;
         }
+
+        if (Cost < 0)
+        {
+            Message = "I like the idea of paying people to get healthy, but the higher ups don't. \nEnter a valid cost (>= 0)";
+            return;
+        }
         
         var start = DateStartTime.Value.Date + (StartTime ?? TimeSpan.Zero);
         var activity = new FitnessActivity(start.ToString(), Title, Cost, Location);

@@ -34,9 +34,21 @@ public partial class AddEntertainmentViewModel : ObservableObject
     [RelayCommand]
     private void SaveEntertainment()
     {
-        if (string.IsNullOrWhiteSpace(Title) || DateStartTime is null || MinParticipants < 1)
+        if (string.IsNullOrWhiteSpace(Title) || DateStartTime is null)
         {
             Message = "Please enter a valid title, start date and minimum participants.";
+            return;
+        }
+
+        if (Cost < 0)
+        {
+            Message = "You don't want to pay people to come to an event.";
+            return;
+        }
+
+        if (MinParticipants < 1)
+        {
+            Message = "Please enter a positive amount of participants.";
             return;
         }
         

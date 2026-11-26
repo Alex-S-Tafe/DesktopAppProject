@@ -24,7 +24,7 @@
                          GroupName="Date" Content="After"
                          IsChecked="{Binding DateAfter}"/>
         </Grid>
-        <Button Width="400">
+        <Button Width="400" Command="{Binding SearchActivitiesCommand}">
             <Label Content="Search Activities" HorizontalAlignment="Center"/>
         </Button>
         <Button Width="400" Command="{Binding DisplayAllCommand}">

@@ -26,6 +26,35 @@ public partial class ActivityHandler : ObservableObject
         }
     }
 
+    public async Task SearchAsync(string date, int period)
+    {
+        if (_readFromDatabase)
+        {
+            // build from params 
+            string query = " WHERE DateStartTime ";
+            switch (period)
+            {
+                case -1:
+                    query += $"< '{date}'";
+                    break;
+                case 0:
+                    string endOfDay = date.Split(' ')[0] += " 23:59:59.000";
+                    query += $"BETWEEN '{date}' AND '{endOfDay}'";
+                    break;
+                case 1:
+                    query += $"> '{date}'";
+                    break;
+            }
+            //Console.WriteLine(query);
+            await ReadActivitiesFromDB(query);
+        }
+        else 
+        {
+            // implement later if time allows
+            ReadActivitiesFromCsv();
+        }
+    }
+
     public void ReadActivitiesFromCsv()
     {
         ReplaceAll(EntertainmentActivities, CsvHandler.ReadEntertainmentActivities());
@@ -38,6 +67,16 @@ public partial class ActivityHandler : ObservableObject
         await dbHandler.Connect();
         var entertainment = await dbHandler.ReadEntertainmentActivities();
         var fitness = await dbHandler.ReadFitnessActivities();
+        ReplaceAll(EntertainmentActivities, entertainment);
+        ReplaceAll(FitnessActivities, fitness);
+    }
+    
+    public async Task ReadActivitiesFromDB(string query)
+    {
+        var dbHandler = new DBHandler();
+        await dbHandler.Connect();
+        var entertainment = await dbHandler.ReadEntertainmentActivities(query);
+        var fitness = await dbHandler.ReadFitnessActivities(query);
         ReplaceAll(EntertainmentActivities, entertainment);
         ReplaceAll(FitnessActivities, fitness);
     }

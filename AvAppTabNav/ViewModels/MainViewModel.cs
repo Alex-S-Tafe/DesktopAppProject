@@ -15,6 +15,7 @@ public class MainViewModel : ViewModelBase
     public MainViewModel()
     {
         AddFitness = new AddFitnessViewModel(_activityHandler);
+        AddEntertainment = new AddEntertainmentViewModel(_activityHandler);
         DisplayActivity = new DisplayActivityViewModel(_activityHandler);
     }
 

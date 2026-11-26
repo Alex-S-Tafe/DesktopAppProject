@@ -24,17 +24,17 @@ public partial class AddEntertainmentViewModel : ObservableObject
     private TimeSpan? _startTime;
     
     [ObservableProperty]
-    private double _cost = 0;
+    private double _cost;
 
     [ObservableProperty]
-    private int _minParticipants = 0;
+    private int _minParticipants;
 
     [ObservableProperty] private string _message = "";
 
     [RelayCommand]
     private void SaveEntertainment()
     {
-        if (string.IsNullOrWhiteSpace(Title) || DateStartTime is null || MinParticipants == 0)
+        if (string.IsNullOrWhiteSpace(Title) || DateStartTime is null || MinParticipants < 1)
         {
             Message = "Please enter a valid title, start date and minimum participants.";
             return;

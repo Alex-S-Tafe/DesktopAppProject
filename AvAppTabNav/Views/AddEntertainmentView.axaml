@@ -16,9 +16,9 @@
             <Label Grid.Row="2" Grid.Column="0" Content="Start Time"/>
             <TimePicker Name="StartTimePicker" Grid.Row="2" Grid.Column="1" SelectedTime="{Binding StartTime}"/>
             <Label Grid.Row="3" Grid.Column="0" Content="Cost"/>
-            <TextBox Name="CostText" Grid.Row="3" Grid.Column="1" PlaceholderText="0.00"/>
+            <TextBox Name="CostText" Grid.Row="3" Grid.Column="1" PlaceholderText="0.00" Text="{Binding Cost}"/>
             <Label Grid.Row="4" Grid.Column="0" Content="Minimum Participants"/>
-            <TextBox Name="ParticipantText" Grid.Row="4" Grid.Column="1" PlaceholderText="4"/>
+            <TextBox Name="ParticipantText" Grid.Row="4" Grid.Column="1" PlaceholderText="4" Text="{Binding MinParticipants}"/>
         </Grid>
         <Button Name="AddEntertainment" Content="Save Entertainment Activity" Command="{Binding SaveEntertainmentCommand}"/>
         <TextBlock Text="{Binding Message}"/>
